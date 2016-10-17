@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>一个完整的 IndexedDB 示例</title>
+    <link rel="stylesheet" href="indexdb.demo.css">
+  </head>
+  <body>
+    <h1>IndexedDB Demo: storing blobs, e-publications example</h1>
+    <div id="msg">
+    </div>
+
+    <form id="register-form">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <label for="pub-title" class="required">
+                Title:
+              </label>
+            </td>
+            <td>
+              <input type="text" id="pub-title" name="pub-title" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="pub-year" class="required">
+                Year:
+              </label>
+            </td>
+            <td>
+              <input type="number" id="pub-year" name="pub-year" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="pub-biblioid" class="required">
+                Bibliographic ID
+                <span class="note">(ISBN, ISSN, etc.)</span>:
+              </label>
+            </td>
+            <td>
+              <input type="text" id="pub-biblioid" name="pub-biblioid"/>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td>
+              <label for="pub-file">
+                File image:
+              </label>
+            </td>
+            <td>
+              <input type="file" id="pub-file" accept="image/*"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="pub-content-url">
+                Online-file image URL:
+              </label>
+            </td>
+            <td>
+              <input type="text" id="pub-content-url" name="pub-content-url"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="button-pane">
+        <input type="button" id="add-button" value="Add Publication" />
+        <input type="reset" id="register-form-reset"/>
+        <span id="action-status"></span>
+      </div>
+    </form>
+
+    <form id="delete-form">
+      <div>
+        <label for="pub-biblioid-to-delete" class="required">
+          Key (for example 1, 2, 3, etc.):
+        </label>
+        <input type="text" id="pub-biblioid-to-delete"
+               name="pub-biblioid-to-delete" />
+      </div>
+      <div class="button-pane">
+        <input type="button" id="delete-button" value="Delete Publication" />
+      </div>
+    </form>
+
+    <form id="search-form">
+      <div class="button-pane">
+        <input type="button" id="search-list-button"
+               value="List database content" />
+      </div>
+    </form>
+
+    <div>
+      <div id="pub-msg">
+      </div>
+      <ul id="pub-list">
+      </ul>
+    </div>
+    <script src="vendor/jquery/jquery.js"></script>
+    <!-- <script src="indexdb.demo.js"></script> -->
+    <script>
+      // function openDB(name) {
+      //   var request = window.indexedDB.open(name);
+
+      //   console.log(request);
+
+      //   request.onerror = function(e) {
+      //     console.log('Open Error!');
+      //   }
+
+      //   request.onsuccess = function(e) {
+      //     myDB.db = e.target.result;
+      //   }
+      // }
+
+
+      // var myDB = {
+      //   name: 'test',
+      //   version: 1,
+      //   db: null
+      // }
+
+      // openDB(myDB.name);
+
+      // var myDB = {
+      //   name: 'test',
+      //   version: 3,
+      //   db: null
+      // };
+
+      // var students = [
+      //   {
+      //     id: 1001,
+      //     name: 'Byron',
+      //     age: 24
+      //   },
+      //   {
+      //     id: 1002,
+      //     name: "Frank",
+      //     age: 30
+      //   },
+      //   {
+      //     id: 1003,
+      //     name: 'Aaron',
+      //     age: 26
+      //   }
+      // ];
+
+      // function openDB(name, version) {
+      //   var version = version || 1;
+      //   var request = window.indexedDB.open(name, version);
+      //   request.onerror = function(e) {
+      //     console.log(e.currentTarget.error.message);
+      //   };
+      //   request.onsuccess = function(e) {
+      //     myDB.db = e.target.result;
+      //   };
+      //   request.onupgradeneeded = function(e) {
+      //     var db = e.target.result;
+      //     if(!db.objectStoreNames.contains('students')) {
+      //       db.createObjectStore('students', {keyPath: 'id',. autoIncrement: true});
+      //     }
+      //     console.log('DB version changed to ' + version);
+      //   };
+      // }
+
+      // function closeDB(db) {
+      //   db.close();
+      // }
+
+      // function deleteDB(name) {
+      //   indexedDB.deleteDatabase(name);
+      // }
+
+      // function addData(db, storeName) {
+      //   var transaction = db.transaction(storeName, 'readwrite');
+      //   var store = transaction.objectStore(storeName);
+
+      //   for(var i = 0; i < students.length; i++) {
+      //     store.add(students[i]);
+      //   }
+      // }
+
+      // function getDataByKey(db, storeName, value) {
+      //   var transaction = db.transaction(storeName, 'readwrite');
+      //   var store = transaction.objectStore(storeName);
+      //   var request = store.get(value);
+      //   request.onsuccess = function(e) {
+      //     var student = e.target.result;
+      //     console.log(student.name);
+      //   }
+      // }
+
+      // function updateDataByKey(db, storeName, value) {
+      //   var transaction = db.transaction(storeName, 'readwrite');
+      //   var store = transaction.objectStore(storeName);
+      //   var request = store.get(value);
+      //   request.onsuccess = function(e) {
+      //     var student = e.target.result;
+      //     student.age = 35;
+      //     store.put(student);
+      //   }
+      // }
+
+      // function deleteDataByKey(db, storeName, value) {
+      //   var transaction = db.transaction(storeName, 'readwrite');
+      //   var store = transaction.objectStore(storeName);
+      //   store.delete(value);
+      // }
+
+      // function clearObjectStore(db, storeName) {
+      //   var transaction = db.transaction(storeName, 'readwrite');
+      //   var store = transaction.objectStore(storeName);
+      //   store.clear();
+      // }
+
+      // openDB(myDB.name, myDB.version);
+      // setTimeout(function() {
+      //   addData(myDB.db, 'students');
+      //   getDataByKey(myDB.db, 'students', '1001');
+      // }, 1000);
+    </script>
+    <script>
+      const customerData = [
+        { ssn: '444-44-4444', name: 'Bill', age: 35, email: 'bill@company.com' },
+        { ssn: '555-55-5555', name: 'Donna', age: 32, email: 'donna@home.org' }
+      ];
+      const dbName = 'the_name'
+      var db;
+      var request = window.indexedDB.open('dbName', 1);
+      request.onerror = function(event) {
+        console.log('onerror');
+      }
+      request.onsuccess = function(event) {
+        console.log('onsuccess');
+      }
+      request.onupgradeneeded = function(event) {
+        db = event.target.result;
+
+        var objectStore = db.createObjectStore('customers', { keyPath: 'ssn' });
+
+        objectStore.createIndex('name', 'name', { unique: false });
+
+        objectStore.createIndex('email', 'email', { unique: true });
+
+        for(var i in customerData) {
+          objectStore.add(customerData[i]);
+        }
+      }
+
+    </script>
+  </body>
+</html>

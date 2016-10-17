@@ -1,0 +1,5 @@
+﻿sessionStorage 属性允许你访问一个 session Storage 对象。它与 localStorage 相似，不同之处在于 localStorage 里面存储的数据没有过期时间设置，而存储在 sessionStorage 里面的数据在页面会话结束时会被清除。页面会话在浏览器打开期间一直保持，并且重新加载或恢复页面仍会保持原来的页面会话。<加粗>在新标签或窗口打开一个页面会初始化一个新的会话，<加粗>这点和 session cookie 的运行方式不同。
+
+localStorage 属性允许你访问一个 local Storage 对象。localStorage 与 sessionStorage 相似。不同之处在于，存储在 localStorage 里面的数据没有过期时间（expiration time），而存储在 sessionStorage 里面的数据会在浏览器会话（browsing session）结束时被清除，即浏览器关闭时。
+
+对于存储少量的数据，Web Storage能够很好的完成任务，但是对大量的结构化数据进行处理时，它就力所不及了，而这正是IndexedDB的应用所在。
