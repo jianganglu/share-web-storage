@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>创建对象仓库</title>
+</head>
+<body>
+  <input type="button" value="更新数据库" onclick="createObjectStore()">
+<script>
+  window.indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;
+  window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+  window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+  window.IDBCursor = window.IDBCursor || window.webkitIDBCursor || window.msIDBCursor;
+
+  var myDB = {
+    name: 'helloindexDB',
+    version: 1,
+    db: null
+  };
+
+  function openDB(name, version) {
+    var version = version || 1;
+    var request = window.indexedDB.open(name, version);
+    request.onsuccess = function(e) {
+      myDB.db = e.target.result;
+      alert('数据库链接成功');
+    };
+    request.onerror = function() {
+      alert('链接数据库失败');
+    };
+    dbConnect.onupgradeneeded = function(e) {
+      var db = e.target.result;
+      if(db.objectStoreNames.contains('students')) {
+        var store = db.createObjectStore('students', {keyPath: 'id'});
+        store.createIndex('nameIndex', 'name', {unique: true});
+        store.createIndex('ageIndex', 'age', {unique: false});
+      }
+    }
+  }
+
+  var students = [
+    {
+      id: 101,
+      name: 'aa',
+      age: 10
+    },
+    {
+      id: 102,
+      name: 'bb',
+      age: 11
+    },
+    {
+      id: 103,
+      name: 'cc',
+      age: 15
+    },
+    {
+      id: 104,
+      name: 'tt',
+      age: 18
+    },
+    {
+      id: 105,
+      name: 'gg',
+      age: 20
+    }
+
+    function addData(db, storeName) {
+      var transaction = db.transaction(storeName, 'readwrite');
+      var store = transaction.objectStore(storeName);
+      for(var i = 0; i<students.length; i++) {
+        store.add(students[i]);
+      };
+    }
+
+    openDB(myDB.name, myDB.version);
+    setTimeout(function() {
+      addData(myDB.db, 'students');
+    }, 1000)
+  ];
+</script>
+</body>
+</html>

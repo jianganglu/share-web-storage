@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>创建对象仓库</title>
+</head>
+<body>
+  <input type="button" value="更新数据库" onclick="createObjectStore()">
+<script>
+  window.indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;
+  window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+  window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+  window.IDBCursor = window.IDBCursor || window.webkitIDBCursor || window.msIDBCursor;
+
+  function createObjectStore() {
+    var dbName = 'indexedDBtest';
+    var dbVersion = 3;
+    var idb;
+    var dbConnect = indexedDB.open(dbName, dbVersion);
+    dbConnect.onsuccess = function(e) {
+      idb = e.target.result;
+      alert('数据库链接成功');
+    };
+    dbConnect.onerror = function() {
+      alert('链接数据库失败');
+    };
+    dbConnect.onupgradeneeded = function(e) {
+      idb = e.target.result;
+      var name = 'user';
+      var optionalParameters = {
+        keyPath: 'userId',
+        autoIncrement: false
+      }
+      var store = idb.createObjectStore(name, optionalParameters);
+      alert('对象仓库创建成功');
+    }
+  }
+</script>
+</body>
+</html>
