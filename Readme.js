@@ -1,4 +1,14 @@
-﻿// 返回一个整数，表示存储在Storage对象中的数据项的数量
+﻿
+
+// 从当前位置读取可以获取的所有cookie
+allCookies = document.cookie;
+
+// updatedCookie是一个键值对形式的字符串。
+// 注意，你只能用这个方法一次设置或更新一个cookie。
+document.cookie = updatedCookie;
+
+
+// 返回一个整数，表示存储在Storage对象中的数据项的数量
 localStorage.length;
 // 该方法接受一个数值 n 作为参数，并返回存储中的第 n 个键名。
 localStorage.key(index);

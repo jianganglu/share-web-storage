@@ -1,0 +1,50 @@
+﻿<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script>
+    alert(document.cookie);
+    document.cookie = 'name=UED';
+    // document.cookie = 'name=UED;max-age=' + (60*60*24*365);
+    document.cookie = 'id=1';
+
+    setCookie('name1', 'UED', 1);
+
+    alert(document.cookie);
+    // 显示: name=UED;id=1
+
+    function getCookie(name) {
+      var strCookie=document.cookie;
+      // 将多cookie切割为多个名/值对
+      var arrCookie=strCookie.split('; '); 
+
+      for(var i=0;i<arrCookie.length;i++) { 
+        // 遍历cookie数组，处理每个cookie对
+        var arr=arrCookie[i].split('=');
+        // 找到名称为cookieName的cookie，并返回它的值
+        if(arr[0] == name) {
+          return arr[1];
+        }
+      }
+      return "";
+    }
+
+    function setCookie(name, value, daysToLive) {
+      var cookie = name + '=' + encodeURIComponent(value);
+      if(typeof daysToLive === 'number') {
+        cookie += ';max-age=' + (daysToLive*60*60*24);
+        document.cookie = cookie;
+      }
+    }
+
+    //清除cookie  
+    function clearCookie(name) {  
+      setCookie(name, "", -1);
+    }
+
+    console.log(getCookie('name'));
+    clearCookie('name');
+  </script>
+</body>
+</html>

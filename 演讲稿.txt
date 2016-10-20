@@ -1,4 +1,6 @@
-﻿sessionStorage 属性允许你访问一个 session Storage 对象。它与 localStorage 相似，不同之处在于 localStorage 里面存储的数据没有过期时间设置，而存储在 sessionStorage 里面的数据在页面会话结束时会被清除。页面会话在浏览器打开期间一直保持，并且重新加载或恢复页面仍会保持原来的页面会话。<加粗>在新标签或窗口打开一个页面会初始化一个新的会话，<加粗>这点和 session cookie 的运行方式不同。
+﻿cookie是指Web浏览器存储少量数据，同时它是与具体的Web页面或者站点相关的。cookie最早是设计为被服务端所用的，从最底层来看，作为HTTP协议的一种扩展实现它。cookie数据会自动在Web浏览器和Web服务器之间传的，因此服务端脚本就可以读、写存储在客户端的cookie值 。
+
+sessionStorage 属性允许你访问一个 session Storage 对象。它与 localStorage 相似，不同之处在于 localStorage 里面存储的数据没有过期时间设置，而存储在 sessionStorage 里面的数据在页面会话结束时会被清除。页面会话在浏览器打开期间一直保持，并且重新加载或恢复页面仍会保持原来的页面会话。<加粗>在新标签或窗口打开一个页面会初始化一个新的会话，<加粗>这点和 session cookie 的运行方式不同。
 
 localStorage 属性允许你访问一个 local Storage 对象。localStorage 与 sessionStorage 相似。不同之处在于，存储在 localStorage 里面的数据没有过期时间（expiration time），而存储在 sessionStorage 里面的数据会在浏览器会话（browsing session）结束时被清除，即浏览器关闭时。
 

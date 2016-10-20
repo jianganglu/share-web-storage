@@ -26,7 +26,7 @@
     };
     dbConnect.onupgradeneeded = function(e) {
       idb = e.target.result;
-      var tx = e.target.transaction;
+      // var tx = e.target.transaction;
       var oldVersion = e.oldVersion;
       var newVersion = e.newVersion;
       alert('数据库更新成功' + oldVersion + '---' + newVersion);
