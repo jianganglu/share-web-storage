@@ -8,19 +8,21 @@
     <input id="field" type="text" value="">
   </body>
   <script>
-    // 获取文本输入框
-    var field = document.getElementById('field');
+    window.onload = function() {
+      // 获取文本输入框
+      var field = document.getElementById('field');
 
-    // 检测是否存在 autosave 键值
-    // (这个会在页面偶然被刷新的情况下存在)
-    if(sessionStorage.getItem('autoSave')) {
-      field.value = sessionStorage.getItem('autoSave');
+      // 检测是否存在 autosave 键值
+      // (这个会在页面偶然被刷新的情况下存在)
+      if(sessionStorage.getItem('autoSave')) {
+        field.value = sessionStorage.getItem('autoSave');
+      }
+
+      // 监听文本输入框的 change 事件
+      field.addEventListener('change', function() {
+        // 保存结果到 sessionStorage 对象中
+        sessionStorage.setItem('autoSave', field.value);
+      });
     }
-
-    // 监听文本输入框的 change 事件
-    field.addEventListener('change', function() {
-      // 保存结果到 sessionStorage 对象中
-      sessionStorage.setItem('autoSave', field.value);
-    });
   </script>
 </html>
