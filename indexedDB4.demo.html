@@ -14,7 +14,7 @@
 
   var myDB = {
     name: 'helloindexDB',
-    version: 4,
+    version: 6,
     db: null
   };
 
@@ -52,12 +52,12 @@
     {
       id: 103,
       name: 'c',
-      age: 15
+      age: 11
     },
     {
       id: 104,
       name: 'e',
-      age: 18
+      age: 11
     },
     {
       id: 105,
@@ -69,24 +69,24 @@
   function addData(db, storeName) {
     var transaction = db.transaction(storeName, 'readwrite');
     var store = transaction.objectStore(storeName);
-    for(var i = 0; i<students.length; i++) {
+    for(var i = 0; i < students.length; i++) {
       store.add(students[i]);
     };
   }
 
   openDB(myDB.name, myDB.version);
-  setTimeout(function() {
-    addData(myDB.db, 'students');
-  }, 1000);
+  // setTimeout(function() {
+  //   addData(myDB.db, 'students');
+  // }, 1000);
 
   // name
   function getDataByIndexName(db, storeName) {
     var transaction = db.transaction(storeName);
     var store = transaction.objectStore(storeName);
     var index = store.index('nameIndex');
-    index.get('aa').onsuccess = function(e) {
+    index.get('a').onsuccess = function(e) {
       var student = e.target.result;
-      console.log(student.name + '--' + student.age + '--' + student.id);
+      // console.log(student.name + '--' + student.age + '--' + student.id);
     }
   }
 
@@ -101,7 +101,7 @@
     var index = store.index('ageIndex');
     index.get(11).onsuccess = function(e) {
       var student = e.target.result;
-      console.log('姓名' + student.name + '-年龄：' + student.age);
+      // console.log('姓名' + student.name + '-年龄：' + student.age);
     }
   }
 
@@ -158,7 +158,7 @@
     // IDBKeyRange.lowerBound(value, isOpen);获取最小是value，第二个参数用来表示是否表示value本身
     // IDBKeyRange.upperBound(value, isOpen);
     // IDBKeyRange.bound(value1, value2, isOpen1, isOpen2);
-    var request = index.openCursor(IDBKeyRange.bound('b', 'z', false, true));
+    var request = index.openCursor(IDBKeyRange.bound('b', 'e', true, true));
     request.onsuccess = function(e) {
       var cursor = e.target.result;
       if(cursor) {

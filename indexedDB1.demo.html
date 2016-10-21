@@ -19,7 +19,7 @@
     var dbConnect = indexedDB.open(dbName, dbVersion);
     dbConnect.onsuccess = function(e) {
       idb = e.target.result;
-      alert('数据库链接成功');
+      alert('数据库连接成功');
     };
     dbConnect.onerror = function() {
       alert('链接数据库失败');
