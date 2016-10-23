@@ -7,7 +7,7 @@
     alert(document.cookie);
     document.cookie = 'id=1';
     document.cookie = 'name=UED';
-    document.cookie = 'age=3;max-age=' + (60*60*24*365);
+    // document.cookie = 'age=3;max-age=' + (60*60*24*365);
 
     alert(document.cookie);
 
@@ -27,7 +27,7 @@
       return "";
     }
     
-    console.log(getCookie('name'));
+    // console.log(getCookie('name'));
 
     function setCookie(name, value, daysToLive) {
       var cookie = name + '=' + encodeURIComponent(value);
@@ -37,14 +37,14 @@
       }
     }
     
-    setCookie('age', '4', 1);
+    // setCookie('age', '4', 1);
 
     //清除cookie  
     function clearCookie(name) {
       setCookie(name, "", -1);
     }
 
-    clearCookie('name');
+    // clearCookie('name');
   </script>
 </body>
 </html>
