@@ -23,10 +23,10 @@
     var request = window.indexedDB.open(name, version);
     request.onsuccess = function(e) {
       myDB.db = e.target.result;
-      alert('数据库链接成功');
+      alert('数据库连接成功');
     };
     request.onerror = function() {
-      alert('链接数据库失败');
+      alert('连接数据库失败');
     };
     request.onupgradeneeded = function(e) {
       var db = e.target.result;
@@ -75,9 +75,33 @@
   }
 
   openDB(myDB.name, myDB.version);
-  // setTimeout(function() {
-  //   addData(myDB.db, 'students');
-  // }, 1000);
+  setTimeout(function() {
+    addData(myDB.db, 'students');
+  }, 1000);
+  
+  function deleteDataById(db, storeName, id) {
+    var transaction = db.transaction(storeName, 'readwrite')
+                        .objectStore(storeName)
+                        .delete(id);
+  }
+
+  setTimeout(function() {
+    deleteDataById(myDB.db, 'students', 103);
+  }, 1000);
+  
+  function editData(db, storeName, student) {
+    var transaction = db.transaction(storeName, 'readwrite')
+                        .objectStore(storeName)
+                        .put(student);
+  }
+
+  setTimeout(function() {
+    editData(myDB.db, 'students', {
+      id: 101,
+      name: 'a',
+      age: 12
+    });
+  }, 1000);
 
   // name
   function getDataByIndexName(db, storeName) {
@@ -86,28 +110,13 @@
     var index = store.index('nameIndex');
     index.get('a').onsuccess = function(e) {
       var student = e.target.result;
-      // console.log(student.name + '--' + student.age + '--' + student.id);
+      // console.log('name:' + student.name + '--age:' + student.age + '--id:' + student.id);
     }
   }
 
-  // setTimeout(function() {
-  //   getDataByIndexName(myDB.db, 'students');
-  // }, 1000);
-
-  // age
-  function getDataByIndexAge(db, storeName) {
-    var transaction = db.transaction(storeName);
-    var store = transaction.objectStore(storeName);
-    var index = store.index('ageIndex');
-    index.get(11).onsuccess = function(e) {
-      var student = e.target.result;
-      // console.log('姓名' + student.name + '-年龄：' + student.age);
-    }
-  }
-
-  // setTimeout(function() {
-  //   getDataByIndexAge(myDB.db, 'students');
-  // }, 1000);
+  setTimeout(function() {
+    getDataByIndexName(myDB.db, 'students');
+  }, 1000);
 
   // 游标
   function fetchStoreByCursor(db, storeName) {
@@ -119,15 +128,15 @@
       if(cursor) {
         // console.log(cursor.key);
         var currentStudent = cursor.value;
-        // console.log(currentStudent.name);
+        // console.log('id:' + cursor.key + '--name:' + currentStudent.name);
         cursor.continue();
       }
     }
   }
 
-  // setTimeout(function() {
-  //   fetchStoreByCursor(myDB.db, 'students');
-  // }, 1000);
+  setTimeout(function() {
+    fetchStoreByCursor(myDB.db, 'students');
+  }, 1000);
 
   // index与游标配合
   function getData(db, storeName) {
@@ -139,15 +148,15 @@
       var cursor = e.target.result;
       if(cursor) {
         var student = cursor.value;
-        console.log(student.id);
+        console.log('id:' + student.id + '--name:' + student.name + '--age:' + student.age);
         cursor.continue();
       }
     }
   }
 
-  // setTimeout(function() {
-  //   getData(myDB.db, 'students');
-  // }, 1000);
+  setTimeout(function() {
+    getData(myDB.db, 'students');
+  }, 1000);
 
   // openCursor范围
   function getDataRange(db, storeName) {

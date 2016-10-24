@@ -5,7 +5,7 @@
   <title>链接数据库</title>
 </head>
 <body>
-  <input type="button" value="链接数据库" onclick="connectDatabase()">
+  <input type="button" value="连接数据库" onclick="connectDatabase()">
 <script>
   window.indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;
   window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
@@ -22,7 +22,7 @@
       alert('数据库连接成功');
     };
     dbConnect.onerror = function() {
-      alert('链接数据库失败');
+      alert('连接数据库失败');
     };
   }
 </script>

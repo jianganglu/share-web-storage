@@ -50,3 +50,7 @@ request.onupgradeneeded = function(event) {
   // 更新对象存储空间和索引 .... 
 };
 
+// 打开我们的数据库
+var request = window.indexedDB.open('MyTestDatabase', 3);
+
+

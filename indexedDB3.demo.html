@@ -5,7 +5,7 @@
   <title>创建对象仓库</title>
 </head>
 <body>
-  <input type="button" value="更新数据库" onclick="createObjectStore()">
+  <input type="button" value="创建仓库" onclick="createObjectStore()">
 <script>
   window.indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;
   window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
@@ -19,10 +19,10 @@
     var dbConnect = indexedDB.open(dbName, dbVersion);
     dbConnect.onsuccess = function(e) {
       idb = e.target.result;
-      alert('数据库链接成功');
+      alert('数据库连接成功');
     };
     dbConnect.onerror = function() {
-      alert('链接数据库失败');
+      alert('连接数据库失败');
     };
     dbConnect.onupgradeneeded = function(e) {
       idb = e.target.result;
